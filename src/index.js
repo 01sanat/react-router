@@ -18,8 +18,11 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route index element={<Home />} /> {/* Index Route for Home */}
-      <Route path='users' element={<Users />}/>
-      <Route path='users/:userId' element={<UserCard />} /> {/* Nested Route without leading slash */}
+      <Route path='users'>
+         <Route index={true} element={<Users/>}/>
+         <Route path=':userId' element={<UserCard />} />
+      </Route>
+      {/* <Route path='users/:userId' element={<UserCard />} /> */}
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
       <Route path='*' element={<div>Not Found</div>} /> {/* 404 Route */}
