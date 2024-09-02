@@ -3,11 +3,53 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Route, RouterProvider, Routes, createBrowserRouter , createRoutesFromElements } from 'react-router-dom';
+import Layout from './Layout';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
+import Users from './components/UserCard/Users';
+import UserCard from './components/UserCard/UserCard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      <Route index element={<Home />} /> {/* Index Route for Home */}
+      <Route path='users' element={<Users />}/>
+      <Route path='users/:userId' element={<UserCard />} /> {/* Nested Route without leading slash */}
+      <Route path='about' element={<About />} />
+      <Route path='contact' element={<Contact />} />
+      <Route path='*' element={<div>Not Found</div>} /> {/* 404 Route */}
+    </Route>
+  )
+);
+  
+  // [{
+  //   path:'',
+  //   element:<Layout/>,
+  //   children:[
+  //     {
+  //       path:'/',
+  //       element:<Home/>
+  //     },
+  //     {path:'users',
+  //       element:<Users/>,
+  //       children:[{
+  //         path:'/:userId',
+  //         element:<UserCard/> ,
+  //       }]
+  //     }
+  //   ]
+  // }
+  //   ]
+// );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
+    {/* <App /> */}
   </React.StrictMode>
 );
 
